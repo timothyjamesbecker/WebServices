@@ -1,2 +1,4 @@
 # WebServices
 JS/D3/Dojo/HTML/CSS Client with JS/JAX-RS/JPA Server MySQL DB AJAJ application template
+
+AJAJ based framework as covered in class that uses JAX-RS/JPA to provide user based read/write on a MySQL DB back end.  The included example will have to have the connection adjusted and persistance.xml, context.xml edited as well as to the creation of a db name test with the following schema: users(varchar(25) uid PK, varchar(45) name).  The uid is the primary key and so the B tree index and the unique constraints will be imposed automatically.
