@@ -22,6 +22,9 @@ function createChart(num) {
   });
 }
 
+function mark() {
+  document.getElementById("SVG0").append('<p>hello</p>');
+}
 //resets the page
 function reset() {
   require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
