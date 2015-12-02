@@ -5,17 +5,19 @@
 //control one point, eliminate the other points by hovering your point over their exact center
 //document.body.id = "theBody";
 var number = 0;
+var player = "o"; //get player from server, hard code here for testing
 
 function createChart(num) {
   require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
 
-    var mySVG = d3.select("#tictactoe").append("svg")
+    var mySVG = d3.select("#tictactoe").append("img")
       .attr("width", 200)
       .attr("height", 200)
-      .attr("id", "SVG" + num)
+      .attr("id", "IMG" + num)
+      //.attr("src", "images/" + player + ".jpg")
       .style("border", "1px solid black")
       .on("click", function () {
-        d3.select(this).style("background-color", "blue");
+        d3.select(this).style("background-image", "url('images/" + player + ".jpg')");
       })
   });
 }
