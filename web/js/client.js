@@ -2,6 +2,66 @@
  * Comments Here
  */
 
+//control one point, eliminate the other points by hovering your point over their exact center
+//document.body.id = "theBody";
+var number = 0;
+
+function createChart(num) {
+  require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
+
+    var mySVG = d3.select("#tictactoe").append("svg")
+      .attr("width", 200)
+      .attr("height", 200)
+      .attr("id", "SVG" + num)
+      .style("border", "1px solid black")
+      .on("click", function () {
+        d3.select(this).style("background-color", "blue");
+      })
+  });
+}
+
+function mark() {
+  document.getElementById("SVG0").append('<p>hello</p>');
+}
+//resets the page
+function reset() {
+  require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
+    d3.selectAll("svg")
+      .data(coordinates, function (d) {
+        return (d);
+      })
+      .exit()
+      .remove();
+  });
+}
+
+//create the divs and buttons
+require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
+  function (domConstruct, dom, win) {
+    var create = "";
+    create = '<div id="button"></div>';
+    domConstruct.place(domConstruct.toDom(create), "start");
+    create = '<div id="tictactoe"></div>';
+    domConstruct.place(domConstruct.toDom(create), "start");
+    create = '<button id="btn"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+  });
+
+//attach stuff to buttons
+require(["dijit/form/Button", "dojo/domReady!"], function (Button) {
+  var button1 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Create SVG",
+    onClick: function () {
+      for (i = 0; i < 9; i++) {
+        createChart(i);
+      }
+    }
+  }, "btn").startup();
+});
+
+/* Beckers pre code
 //AMD dojo Buttons
 //dojo button attached to D3 function via AMD
 require(["dijit/form/Button", "dijit/form/ValidationTextBox",
@@ -93,3 +153,5 @@ function post_json(url,uid,pwd){
             );
         });
 }
+
+*/
