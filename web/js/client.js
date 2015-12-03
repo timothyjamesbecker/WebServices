@@ -18,13 +18,10 @@ function createChart(num) {
       .style("border", "1px solid black")
       .on("click", function () {
         d3.select(this).style("background-image", "url('images/" + player + ".jpg')");
-      })
+      });
   });
 }
 
-function mark() {
-  document.getElementById("SVG0").append('<p>hello</p>');
-}
 //resets the page
 function reset() {
   require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
