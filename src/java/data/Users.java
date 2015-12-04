@@ -10,17 +10,21 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author tbecker
+ * @author Andrew
  */
 @Entity
 @Table(name = "users")
@@ -28,22 +32,46 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
     @NamedQuery(name = "Users.findByUid", query = "SELECT u FROM Users u WHERE u.uid = :uid"),
-    @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")})
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
+    @NamedQuery(name = "Users.findByWins", query = "SELECT u FROM Users u WHERE u.wins = :wins"),
+    @NamedQuery(name = "Users.findByLosses", query = "SELECT u FROM Users u WHERE u.losses = :losses"),
+    @NamedQuery(name = "Users.findByTies", query = "SELECT u FROM Users u WHERE u.ties = :ties"),
+    @NamedQuery(name = "Users.findByProfilePic", query = "SELECT u FROM Users u WHERE u.profilePic = :profilePic")})
 public class Users implements Serializable {
+   // @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+   // private Activeplayers activeplayers;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
     @Column(name = "uid")
     private String uid;
-    @Column(name = "name")
-    private String name;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "password")
+    private String password;
+    @Column(name = "wins")
+    private Integer wins;
+    @Column(name = "losses")
+    private Integer losses;
+    @Column(name = "ties")
+    private Integer ties;
+    @Size(max = 255)
+    @Column(name = "profilePic")
+    private String profilePic;
 
     public Users() {
     }
-    
-    public Users(String uid, String name) {
+
+    public Users(String uid) {
         this.uid = uid;
-        this.name = name;
+    }
+
+    public Users(String uid, String password) {
+        this.uid = uid;
+        this.password = password;
     }
 
     public String getUid() {
@@ -54,12 +82,44 @@ public class Users implements Serializable {
         this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getPassword() {
+        return password;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getWins() {
+        return wins;
+    }
+
+    public void setWins(Integer wins) {
+        this.wins = wins;
+    }
+
+    public Integer getLosses() {
+        return losses;
+    }
+
+    public void setLosses(Integer losses) {
+        this.losses = losses;
+    }
+
+    public Integer getTies() {
+        return ties;
+    }
+
+    public void setTies(Integer ties) {
+        this.ties = ties;
+    }
+
+    public String getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(String profilePic) {
+        this.profilePic = profilePic;
     }
 
     @Override
@@ -84,19 +144,15 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add("uid",uid);
-        builder.add("name",name);
-        JsonObject json = builder.build();
-        return json.toString();
+        return "data.Users[ uid=" + uid + " ]";
     }
-    
-    public JsonObject toJSON(){
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add("uid",uid);
-        builder.add("name",name);
-        JsonObject json = builder.build();
-        return json;
-    }
+
+//    public Activeplayers getActiveplayers() {
+//        return activeplayers;
+//    }
+//
+//    public void setActiveplayers(Activeplayers activeplayers) {
+//        this.activeplayers = activeplayers;
+//    }
     
 }

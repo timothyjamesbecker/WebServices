@@ -3,12 +3,14 @@
   <persistence-unit name="ProjectPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>data.Users</class>
+    <class>data.Games</class>
+    <class>data.Activeplayers</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://137.49.154.249:3306/test"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ticktacktoe?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="webuser"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="webuser"/>
+      <property name="javax.persistence.jdbc.password" value="developmentpassword"/>
     </properties>
   </persistence-unit>
 </persistence>

@@ -5,18 +5,12 @@
  */
 package data.table;
 
-import data.Users;
-import java.io.StringReader;
+import data.Activeplayers;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,54 +19,32 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Andrew
  */
 @Stateless
-@Path("data.users")
-public class UsersFacadeREST extends AbstractFacade<Users> {
+@Path("data.activeplayers")
+public class ActiveplayersFacadeREST extends AbstractFacade<Activeplayers> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
 
-    public UsersFacadeREST() {
-        super(Users.class);
+    public ActiveplayersFacadeREST() {
+        super(Activeplayers.class);
     }
 
     @POST
-    @Consumes({"application/json"})
-    @Produces({"application/json"})
-    public String start(String content){
-        String uid, name;
-        JsonReader reader;
-        try{
-            //read the posted data
-            reader = Json.createReader(new StringReader(content));
-            JsonObject json = reader.readObject();
-            reader.close();
-            uid = json.getString("uid");
-            name = json.getString("name");
-            
-        } catch(Exception e){
-            uid = "chunk";
-            name = "track";
-        }
-        create(new Users(uid,name));
-        Users u = super.find(uid);
-        return u.toString();
-    }
     @Override
-    @Consumes({"application/json"})
-    public void create(Users entity) {
+    @Consumes({"application/xml", "application/json"})
+    public void create(Activeplayers entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({"application/json"})
-    public void edit(@PathParam("id") String id, Users entity) {
+    @Consumes({"application/xml", "application/json"})
+    public void edit(@PathParam("id") String id, Activeplayers entity) {
         super.edit(entity);
     }
 
@@ -84,22 +56,22 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
 
     @GET
     @Path("{id}")
-    @Produces({"application/json"})
-    public Users find(@PathParam("id") String id) {
+    @Produces({"application/xml", "application/json"})
+    public Activeplayers find(@PathParam("id") String id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({"application/json"})
-    public List<Users> findAll() {
+    @Produces({"application/xml", "application/json"})
+    public List<Activeplayers> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({"application/json"})
-    public List<Users> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    @Produces({"application/xml", "application/json"})
+    public List<Activeplayers> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

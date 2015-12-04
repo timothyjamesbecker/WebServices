@@ -29,7 +29,9 @@ CREATE TABLE `activeplayers` (
   `game#` int(11) DEFAULT NULL,
   `inGameWith` varchar(25) DEFAULT NULL,
   `player` binary(1) DEFAULT NULL,
-  KEY `uid_idx` (`uid`),
+  PRIMARY KEY (`uid`),
+  KEY `inGameWith_idx` (`inGameWith`),
+  KEY `uid_idx` (`uid`,`inGameWith`),
   CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -51,10 +53,10 @@ DROP TABLE IF EXISTS `games`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `games` (
-  `game#` int(11) NOT NULL,
-  `gameState` json NOT NULL,
-  `turn` binary(1) NOT NULL,
-  PRIMARY KEY (`game#`)
+  `game` int(11) NOT NULL,
+  `gameState` varchar(255) NOT NULL,
+  `turn` tinyint(1) NOT NULL,
+  PRIMARY KEY (`game`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -64,6 +66,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
+INSERT INTO `games` VALUES (99999,'\"{json : \'asdf\'}\"',1);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,4 +115,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-02 22:42:22
+-- Dump completed on 2015-12-03 20:43:25
