@@ -23,15 +23,8 @@ function createChart(num) {
 }
 
 //resets the page
-function reset() {
-  require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
-    d3.selectAll("svg")
-      .data(coordinates, function (d) {
-        return (d);
-      })
-      .exit()
-      .remove();
-  });
+function reset(stringID) {
+  document.getElementById(stringID).innerHTML = "";
 }
 
 //create the divs and buttons
@@ -53,6 +46,7 @@ require(["dijit/form/Button", "dojo/domReady!"], function (Button) {
     showLabel: true,
     label: "Create SVG",
     onClick: function () {
+      reset("tictactoe");
       for (i = 0; i < 9; i++) {
         createChart(i);
       }
