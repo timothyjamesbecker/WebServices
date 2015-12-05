@@ -76,7 +76,7 @@ public class UsersFacade extends AbstractFacade<Users> {
     }
 
     public String countREST() {
-        throw new UnsupportedOperationException();//return String.valueOf(super.count());
+        return String.valueOf(super.count());
     }
 
     @Override

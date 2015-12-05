@@ -5,6 +5,8 @@
  */
 package data;
 
+import data.table.ActiveplayersFacade;
+import data.table.GamesFacade;
 import data.table.UsersFacade;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -24,6 +26,8 @@ import javax.ws.rs.PUT;
 public class GenericResource {
 
     UsersFacade usersFacade;
+    GamesFacade gamesFacade;
+    ActiveplayersFacade activeplayers;
     @Context
     private UriInfo context;
 
@@ -32,6 +36,8 @@ public class GenericResource {
      */
     public GenericResource() {
         usersFacade = new UsersFacade();
+        gamesFacade = new GamesFacade();
+        activeplayers = new ActiveplayersFacade();
     }
 
     /**
@@ -46,7 +52,7 @@ public class GenericResource {
         return usersFacade.find(id).getPassword();
     }
 
-    /** 
+    /**
      * Retrieves representation of an instance of data.GenericResource
      *
      * @return an instance of java.lang.String
@@ -57,7 +63,7 @@ public class GenericResource {
     public String getJsonChangepass(@PathParam("id") String id, @PathParam("password") String password) {
         Users user = usersFacade.find(id);
         user.setPassword(password);
-       // usersFacade.edit(user);
+        // usersFacade.edit(user);
         return "Password changed to " + usersFacade.find(id).getPassword() + " (it should show: " + password + ")";
     }
 
@@ -67,7 +73,7 @@ public class GenericResource {
      * @param content representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */
-@PUT
+    @PUT
     @Consumes("application/json")
     public void putJson(String content) {
     }

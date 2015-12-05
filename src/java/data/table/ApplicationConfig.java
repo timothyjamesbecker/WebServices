@@ -30,8 +30,6 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(data.GenericResource.class);
-        resources.add(data.table.ActiveplayersFacadeREST.class);
-        resources.add(data.table.GamesFacadeREST.class);
     }
     
 }
