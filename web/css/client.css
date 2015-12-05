@@ -1,16 +1,11 @@
 /*
 Comments Here
 */
-svg {
-  padding: 0px;
-  margin: 0px;
-  margin-top: -4px;
-}
-
 #button {
   margin-bottom: 15px;
 }
 
 #tictactoe {
   width: 606px;
+  height:606px;
 }

@@ -10,12 +10,12 @@ var player = "o"; //get player from server, hard code here for testing
 function createChart(num) {
   require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
 
-    var mySVG = d3.select("#tictactoe").append("img")
+    var mySVG = d3.select("#tictactoe").append("svg")
       .attr("width", 200)
       .attr("height", 200)
-      .attr("id", "IMG" + num)
-      //.attr("src", "images/" + player + ".jpg")
+      .attr("id", "svg" + num)
       .style("border", "1px solid black")
+      .style("margin-top","-5px")
       .on("click", function () {
         d3.select(this).style("background-image", "url('images/" + player + ".jpg')");
       });
