@@ -4,7 +4,6 @@
 
 //control one point, eliminate the other points by hovering your point over their exact center
 //document.body.id = "theBody";
-var number = 0;
 var player = "o"; //get player from server, hard code here for testing
 
 function createChart(num) {
@@ -31,11 +30,23 @@ function reset(stringID) {
 require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
   function (domConstruct, dom, win) {
     var create = "";
+    create = '<input id="user"/>';
+    domConstruct.place(domConstruct.toDom(create), "start");
+    create = '<input id="pwd" type="password"/>';
+    domConstruct.place(domConstruct.toDom(create), "start");
     create = '<div id="button"></div>';
     domConstruct.place(domConstruct.toDom(create), "start");
     create = '<div id="tictactoe"></div>';
     domConstruct.place(domConstruct.toDom(create), "start");
-    create = '<button id="btn"></button>';
+    create = '<button id="login"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="create"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="online"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="ai"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="logout"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
   });
 
@@ -44,14 +55,55 @@ require(["dijit/form/Button", "dojo/domReady!"], function (Button) {
   var button1 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
-    label: "Create SVG",
+    label: "Login",
+    onClick: function () {
+        //send user/pwd to DB to login
+    }
+  }, "login").startup();
+  
+  var button2 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Create Account",
+    onClick: function () {
+      //chcek DB for existing user
+      //confirm password
+      //send user/pass to DB
+    }
+  }, "create").startup();
+  
+  var button3 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Find Online Opponent",
     onClick: function () {
       reset("tictactoe");
       for (i = 0; i < 9; i++) {
         createChart(i);
       }
     }
-  }, "btn").startup();
+  }, "online").startup();
+  
+  var button4 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Face AI Opponent",
+    onClick: function () {
+      reset("tictactoe");
+      for (i = 0; i < 9; i++) {
+        createChart(i);
+      }
+    }
+  }, "ai").startup();
+  
+  var button5 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Logout",
+    onClick: function () {
+        reset("tictactoe");
+    }
+  }, "logout").startup();
 });
 
 /* Beckers pre code
