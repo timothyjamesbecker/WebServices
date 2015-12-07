@@ -86,6 +86,11 @@ public class GenericResource {
     @Consumes("application/json")
     @Produces("application/json")
     public String postJSON(String content) {
-        return "communicated with the server!";
+        String[] variables = content.split("&");
+        String action = variables[0];
+        if(action.contains(("login"))){
+            return "login action detected!";
+        }
+        return "communicated with the server, no login!";
     }
 }
