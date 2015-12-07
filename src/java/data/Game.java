@@ -25,11 +25,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "games")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Games.findAll", query = "SELECT g FROM Games g"),
-    @NamedQuery(name = "Games.findByGame", query = "SELECT g FROM Games g WHERE g.game = :game"),
-    @NamedQuery(name = "Games.findByGameState", query = "SELECT g FROM Games g WHERE g.gameState = :gameState"),
-    @NamedQuery(name = "Games.findByTurn", query = "SELECT g FROM Games g WHERE g.turn = :turn")})
-public class Games implements Serializable {
+    @NamedQuery(name = "Games.findAll", query = "SELECT g FROM Game g"),
+    @NamedQuery(name = "Games.findByGame", query = "SELECT g FROM Game g WHERE g.game = :game"),
+    @NamedQuery(name = "Games.findByGameState", query = "SELECT g FROM Game g WHERE g.gameState = :gameState"),
+    @NamedQuery(name = "Games.findByTurn", query = "SELECT g FROM Game g WHERE g.turn = :turn")})
+public class Game implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -46,14 +46,14 @@ public class Games implements Serializable {
     @Column(name = "turn")
     private boolean turn;
 
-    public Games() {
+    public Game() {
     }
 
-    public Games(Integer game) {
+    public Game(Integer game) {
         this.game = game;
     }
 
-    public Games(Integer game, String gameState, boolean turn) {
+    public Game(Integer game, String gameState, boolean turn) {
         this.game = game;
         this.gameState = gameState;
         this.turn = turn;
@@ -93,10 +93,10 @@ public class Games implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Games)) {
+        if (!(object instanceof Game)) {
             return false;
         }
-        Games other = (Games) object;
+        Game other = (Game) object;
         if ((this.game == null && other.game != null) || (this.game != null && !this.game.equals(other.game))) {
             return false;
         }

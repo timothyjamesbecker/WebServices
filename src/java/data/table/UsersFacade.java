@@ -5,7 +5,7 @@
  */
 package data.table;
 
-import data.Users;
+import data.User;
 import java.io.StringReader;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -23,12 +23,12 @@ import javax.ws.rs.core.MediaType;
  * @author Andrew
  */
 @Stateless
-public class UsersFacade extends AbstractFacade<Users> {
+public class UsersFacade extends AbstractFacade<User> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
 
     public UsersFacade() {
-        super(Users.class);
+        super(User.class);
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();
     }
 
@@ -51,11 +51,11 @@ public class UsersFacade extends AbstractFacade<Users> {
 //        Users u = super.find(uid);
 //        return u.toString();
 //    }
-    public void create(Users entity) {
+    public void create(User entity) {
         super.create(entity);
     }
 
-    public void edit(String id, Users entity) {
+    public void edit(String id, User entity) {
         super.edit(entity);
     }
 
@@ -63,15 +63,15 @@ public class UsersFacade extends AbstractFacade<Users> {
         super.remove(super.find(id));
     }
 
-    public Users find(String id) {
+    public User find(String id) {
         return super.find(id);
     }
 
-    public List<Users> findAll() {
+    public List<User> findAll() {
         return super.findAll();
     }
 
-    public List<Users> findRange(Integer from, Integer to) {
+    public List<User> findRange(Integer from, Integer to) {
         throw new UnsupportedOperationException();//return super.findRange(new int[]{from, to});
     }
 

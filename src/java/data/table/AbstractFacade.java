@@ -41,8 +41,9 @@ public abstract class AbstractFacade<T> {
     public void remove(T entity) {
         getEntityManager().getTransaction().begin();
 //        getEntityManager().merge(entity);
+      //  getEntityManager().getTransaction().commit();
         getEntityManager().remove(getEntityManager().merge(entity));
-        getEntityManager().getTransaction().commit();
+       // getEntityManager().getTransaction().commit();
     }
 
     public T find(Object id) {

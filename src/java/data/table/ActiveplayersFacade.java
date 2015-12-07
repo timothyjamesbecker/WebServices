@@ -5,7 +5,7 @@
  */
 package data.table;
 
-import data.Activeplayers;
+import data.Activeplayer;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,20 +17,20 @@ import javax.persistence.PersistenceContext;
  * @author Andrew
  */
 @Stateless
-public class ActiveplayersFacade extends AbstractFacade<Activeplayers> {
+public class ActiveplayersFacade extends AbstractFacade<Activeplayer> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
 
     public ActiveplayersFacade() {
-        super(Activeplayers.class);
+        super(Activeplayer.class);
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();
     }
 
-    public void create(Activeplayers entity) {
+    public void create(Activeplayer entity) {
         super.create(entity);
     }
 
-    public void edit(String id, Activeplayers entity) {
+    public void edit(String id, Activeplayer entity) {
         super.edit(entity);
     }
 
@@ -38,22 +38,22 @@ public class ActiveplayersFacade extends AbstractFacade<Activeplayers> {
         super.remove(super.find(id));
     }
 
-    public Activeplayers find(String id) {
+    public Activeplayer find(String id) {
         return super.find(id);
     }
 
-    public List<Activeplayers> findAll() {
+    public List<Activeplayer> findAll() {
        throw new UnsupportedOperationException();//  return super.findAll();
     }
 
-    public List<Activeplayers> findRange(Integer from, Integer to) {
+    public List<Activeplayer> findRange(Integer from, Integer to) {
        throw new UnsupportedOperationException();//  return super.findRange(new int[]{from, to});
     }
 
     public String countREST() {
         return String.valueOf(super.count());
     }
-
+    
     @Override
     protected EntityManager getEntityManager() {
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();

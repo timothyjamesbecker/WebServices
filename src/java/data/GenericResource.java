@@ -8,6 +8,7 @@ package data;
 import data.table.ActiveplayersFacade;
 import data.table.GamesFacade;
 import data.table.UsersFacade;
+import javax.persistence.EntityManager;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
@@ -27,7 +28,7 @@ public class GenericResource {
 
     UsersFacade usersFacade;
     GamesFacade gamesFacade;
-    ActiveplayersFacade activeplayers;
+    ActiveplayersFacade activeplayersFacade;
     @Context
     private UriInfo context;
 
@@ -37,7 +38,7 @@ public class GenericResource {
     public GenericResource() {
         usersFacade = new UsersFacade();
         gamesFacade = new GamesFacade();
-        activeplayers = new ActiveplayersFacade();
+        activeplayersFacade = new ActiveplayersFacade();
     }
 
     /**
@@ -61,7 +62,7 @@ public class GenericResource {
     @Path("{id}/{password}")
     @Produces("application/json")
     public String getJsonChangepass(@PathParam("id") String id, @PathParam("password") String password) {
-        Users user = usersFacade.find(id);
+        User user = usersFacade.find(id);
         user.setPassword(password);
         // usersFacade.edit(user);
         return "Password changed to " + usersFacade.find(id).getPassword() + " (it should show: " + password + ")";

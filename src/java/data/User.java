@@ -6,9 +6,7 @@
 package data;
 
 import java.io.Serializable;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,11 +14,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,16 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findByUid", query = "SELECT u FROM Users u WHERE u.uid = :uid"),
-    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
-    @NamedQuery(name = "Users.findByWins", query = "SELECT u FROM Users u WHERE u.wins = :wins"),
-    @NamedQuery(name = "Users.findByLosses", query = "SELECT u FROM Users u WHERE u.losses = :losses"),
-    @NamedQuery(name = "Users.findByTies", query = "SELECT u FROM Users u WHERE u.ties = :ties"),
-    @NamedQuery(name = "Users.findByProfilePic", query = "SELECT u FROM Users u WHERE u.profilePic = :profilePic")})
-public class Users implements Serializable {
-   // @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
-   // private Activeplayers activeplayers;
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "Users.findByUid", query = "SELECT u FROM User u WHERE u.uid = :uid"),
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
+    @NamedQuery(name = "Users.findByWins", query = "SELECT u FROM User u WHERE u.wins = :wins"),
+    @NamedQuery(name = "Users.findByLosses", query = "SELECT u FROM User u WHERE u.losses = :losses"),
+    @NamedQuery(name = "Users.findByTies", query = "SELECT u FROM User u WHERE u.ties = :ties"),
+    @NamedQuery(name = "Users.findByProfilePic", query = "SELECT u FROM User u WHERE u.profilePic = :profilePic")})
+public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,15 +59,23 @@ public class Users implements Serializable {
     @Size(max = 255)
     @Column(name = "profilePic")
     private String profilePic;
+//    @OneToOne(mappedBy = "inGameWith")
+//    private Activeplayer activeplayers;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
+//    private Collection<Activeplayer> activeplayersCollection;
+    @OneToOne(mappedBy = "uid")
+    private Activeplayer activeplayers;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inGameWith")
+    private Collection<Activeplayer> activeplayersCollection;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String uid) {
+    public User(String uid) {
         this.uid = uid;
     }
 
-    public Users(String uid, String password) {
+    public User(String uid, String password) {
         this.uid = uid;
         this.password = password;
     }
@@ -122,6 +128,23 @@ public class Users implements Serializable {
         this.profilePic = profilePic;
     }
 
+    public Activeplayer getActiveplayers() {
+        return activeplayers;
+    }
+
+    public void setActiveplayers(Activeplayer activeplayers) {
+        this.activeplayers = activeplayers;
+    }
+
+    @XmlTransient
+    public Collection<Activeplayer> getActiveplayersCollection() {
+        return activeplayersCollection;
+    }
+
+    public void setActiveplayersCollection(Collection<Activeplayer> activeplayersCollection) {
+        this.activeplayersCollection = activeplayersCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -132,10 +155,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof User)) {
             return false;
         }
-        Users other = (Users) object;
+        User other = (User) object;
         if ((this.uid == null && other.uid != null) || (this.uid != null && !this.uid.equals(other.uid))) {
             return false;
         }
@@ -146,13 +169,5 @@ public class Users implements Serializable {
     public String toString() {
         return "data.Users[ uid=" + uid + " ]";
     }
-
-//    public Activeplayers getActiveplayers() {
-//        return activeplayers;
-//    }
-//
-//    public void setActiveplayers(Activeplayers activeplayers) {
-//        this.activeplayers = activeplayers;
-//    }
     
 }

@@ -5,7 +5,7 @@
  */
 package data.table;
 
-import data.Games;
+import data.Game;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,20 +17,20 @@ import javax.persistence.PersistenceContext;
  * @author Andrew
  */
 @Stateless
-public class GamesFacade extends AbstractFacade<Games> {
+public class GamesFacade extends AbstractFacade<Game> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
 
     public GamesFacade() {
-        super(Games.class);
+        super(Game.class);
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();
     }
 
-    public void create(Games entity) {
+    public void create(Game entity) {
         super.create(entity);
     }
 
-    public void edit(Integer id, Games entity) {
+    public void edit(Integer id, Game entity) {
         super.edit(entity);
     }
 
@@ -38,15 +38,15 @@ public class GamesFacade extends AbstractFacade<Games> {
         super.remove(super.find(id));
     }
 
-    public Games find(Integer id) {
+    public Game find(Integer id) {
         return super.find(id);
     }
 
-    public List<Games> findAll() {
+    public List<Game> findAll() {
        throw new UnsupportedOperationException();//return super.findAll();
     }
 
-    public List<Games> findRange(Integer from, Integer to) {
+    public List<Game> findRange(Integer from, Integer to) {
        throw new UnsupportedOperationException();// return super.findRange(new int[]{from, to});
     }
 
