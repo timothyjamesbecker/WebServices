@@ -43,9 +43,8 @@ public class Activeplayers implements Serializable {
     @Size(max = 25)
     @Column(name = "inGameWith")
     private String inGameWith;
-    @Lob
     @Column(name = "player")
-    private byte[] player;
+    private boolean player;
 
     public Activeplayers() {
     }
@@ -78,11 +77,11 @@ public class Activeplayers implements Serializable {
         this.inGameWith = inGameWith;
     }
 
-    public byte[] getPlayer() {
+    public boolean getPlayer() {
         return player;
     }
 
-    public void setPlayer(byte[] player) {
+    public void setPlayer(boolean player) {
         this.player = player;
     }
 

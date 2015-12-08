@@ -28,7 +28,7 @@ CREATE TABLE `activeplayers` (
   `uid` varchar(25) NOT NULL,
   `game` int(11) DEFAULT NULL,
   `inGameWith` varchar(25) DEFAULT NULL,
-  `player` binary(1) DEFAULT NULL,
+  `player` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   KEY `inGameWith_idx` (`inGameWith`),
   KEY `game_idx` (`game`),
@@ -42,7 +42,7 @@ CREATE TABLE `activeplayers` (
 
 LOCK TABLES `activeplayers` WRITE;
 /*!40000 ALTER TABLE `activeplayers` DISABLE KEYS */;
-INSERT INTO `activeplayers` VALUES ('testUser1',NULL,NULL,NULL),('testuser3',99999,'testUser','1');
+INSERT INTO `activeplayers` VALUES ('testUser1',NULL,NULL,1),('testuser3',99999,'testUser',1);
 /*!40000 ALTER TABLE `activeplayers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (99999,'\"{json}:\'asdf\'}',1);
+INSERT INTO `games` VALUES (99999,'\"{json:\'asdf\'}\"',1);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-07 20:05:43
+-- Dump completed on 2015-12-07 22:49:16
