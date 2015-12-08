@@ -25,7 +25,6 @@ import javax.ws.rs.Produces;
  * @author Andrew
  */
 @Stateless
-@Path("data.users")
 public class UsersFacade extends AbstractFacade<Users> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
@@ -35,50 +34,30 @@ public class UsersFacade extends AbstractFacade<Users> {
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();
     }
 
-    @POST
-    @Override
-    @Consumes({"application/xml", "application/json"})
     public void create(Users entity) {
         super.create(entity);
     }
 
-    @PUT
-    @Path("{id}")
-    @Consumes({"application/xml", "application/json"})
-    public void edit(@PathParam("id") String id, Users entity) {
+    public void edit(String id, Users entity) {
         super.edit(entity);
     }
 
-    @DELETE
-    @Path("{id}")
-    public void remove(@PathParam("id") String id) {
+    public void remove(String id) {
         super.remove(super.find(id));
     }
 
-    @GET
-    @Path("{id}")
-    @Produces({"application/xml", "application/json"})
-    public Users find(@PathParam("id") String id) {
+    public Users find(String id) {
         return super.find(id);
     }
 
-    @GET
-    @Override
-    @Produces({"application/xml", "application/json"})
     public List<Users> findAll() {
         return super.findAll();
     }
 
-    @GET
-    @Path("{from}/{to}")
-    @Produces({"application/xml", "application/json"})
-    public List<Users> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<Users> findRange(Integer from, Integer to) {
         return super.findRange(new int[]{from, to});
     }
 
-    @GET
-    @Path("count")
-    @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }
