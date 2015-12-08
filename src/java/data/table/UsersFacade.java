@@ -5,76 +5,80 @@
  */
 package data.table;
 
-import data.User;
-import java.io.StringReader;
+import data.Users;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author Andrew
  */
 @Stateless
-public class UsersFacade extends AbstractFacade<User> {
+@Path("data.users")
+public class UsersFacade extends AbstractFacade<Users> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
 
     public UsersFacade() {
-        super(User.class);
+        super(Users.class);
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();
     }
 
-//    public String start(String content){
-//        String uid, name;
-//        JsonReader reader;
-//        try{
-//            //read the posted data
-//            reader = Json.createReader(new StringReader(content));
-//            JsonObject json = reader.readObject();
-//            reader.close();
-//            uid = json.getString("uid");
-//            name = json.getString("name");
-//            
-//        } catch(Exception e){
-//            uid = "chunk";
-//            name = "track";
-//        }
-//        create(new Users(uid,name));
-//        Users u = super.find(uid);
-//        return u.toString();
-//    }
-    public void create(User entity) {
+    @POST
+    @Override
+    @Consumes({"application/xml", "application/json"})
+    public void create(Users entity) {
         super.create(entity);
     }
 
-    public void edit(String id, User entity) {
+    @PUT
+    @Path("{id}")
+    @Consumes({"application/xml", "application/json"})
+    public void edit(@PathParam("id") String id, Users entity) {
         super.edit(entity);
     }
 
-    public void remove(String id) {
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") String id) {
         super.remove(super.find(id));
     }
 
-    public User find(String id) {
+    @GET
+    @Path("{id}")
+    @Produces({"application/xml", "application/json"})
+    public Users find(@PathParam("id") String id) {
         return super.find(id);
     }
 
-    public List<User> findAll() {
+    @GET
+    @Override
+    @Produces({"application/xml", "application/json"})
+    public List<Users> findAll() {
         return super.findAll();
     }
 
-    public List<User> findRange(Integer from, Integer to) {
-        throw new UnsupportedOperationException();//return super.findRange(new int[]{from, to});
+    @GET
+    @Path("{from}/{to}")
+    @Produces({"application/xml", "application/json"})
+    public List<Users> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to});
     }
 
+    @GET
+    @Path("count")
+    @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }

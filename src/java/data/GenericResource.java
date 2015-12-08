@@ -50,7 +50,9 @@ public class GenericResource {
     @Path("{id}")
     @Produces("application/json")
     public String getJson(@PathParam("id") String id) {
-        return usersFacade.find(id).getPassword();
+        gamesFacade.remove(gamesFacade.find(activeplayersFacade.find(id).getGame()));
+        return "Asdf";
+        //return activeplayersFacade.find(usersFacade.find(id).getUid()).toString();//usersFacade.find(id).getPassword();
     }
 
     /**
@@ -62,7 +64,7 @@ public class GenericResource {
     @Path("{id}/{password}")
     @Produces("application/json")
     public String getJsonChangepass(@PathParam("id") String id, @PathParam("password") String password) {
-        User user = usersFacade.find(id);
+        Users user = usersFacade.find(id);
         user.setPassword(password);
         // usersFacade.edit(user);
         return "Password changed to " + usersFacade.find(id).getPassword() + " (it should show: " + password + ")";

@@ -26,13 +26,13 @@ DROP TABLE IF EXISTS `activeplayers`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `activeplayers` (
   `uid` varchar(25) NOT NULL,
-  `game#` int(11) DEFAULT NULL,
+  `game` int(11) DEFAULT NULL,
   `inGameWith` varchar(25) DEFAULT NULL,
   `player` binary(1) DEFAULT NULL,
   PRIMARY KEY (`uid`),
   KEY `inGameWith_idx` (`inGameWith`),
-  KEY `uid_idx` (`uid`,`inGameWith`),
-  CONSTRAINT `uid` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `game_idx` (`game`),
+  KEY `uid_idx` (`uid`,`inGameWith`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,6 +42,7 @@ CREATE TABLE `activeplayers` (
 
 LOCK TABLES `activeplayers` WRITE;
 /*!40000 ALTER TABLE `activeplayers` DISABLE KEYS */;
+INSERT INTO `activeplayers` VALUES ('testUser1',NULL,NULL,NULL),('testuser3',99999,'testUser','1');
 /*!40000 ALTER TABLE `activeplayers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +67,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (99999,'\"{json : \'asdf\'}\"',1);
+INSERT INTO `games` VALUES (99999,'\"{json}:\'asdf\'}',1);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +95,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('testUser','asdfasdf',8,NULL,NULL,''),('testUser1','nothashed',NULL,NULL,NULL,NULL),('testuser2','password',1,5,3,NULL),('testuser3','qwerty123',8,1,2,NULL);
+INSERT INTO `users` VALUES ('testUser','asdfasdf',8,NULL,NULL,''),('testUser1','asdf',NULL,NULL,NULL,NULL),('testuser3','qwerty123',8,1,2,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-03 20:43:25
+-- Dump completed on 2015-12-07 20:05:43

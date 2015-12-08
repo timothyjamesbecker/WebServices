@@ -5,51 +5,80 @@
  */
 package data.table;
 
-import data.Game;
+import data.Games;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 /**
  *
  * @author Andrew
  */
 @Stateless
-public class GamesFacade extends AbstractFacade<Game> {
+@Path("data.games")
+public class GamesFacade extends AbstractFacade<Games> {
     @PersistenceContext(unitName = "ProjectPU")
     private EntityManager em;
 
     public GamesFacade() {
-        super(Game.class);
+        super(Games.class);
         em = Persistence.createEntityManagerFactory("ProjectPU").createEntityManager();
     }
 
-    public void create(Game entity) {
+    @POST
+    @Override
+    @Consumes({"application/xml", "application/json"})
+    public void create(Games entity) {
         super.create(entity);
     }
 
-    public void edit(Integer id, Game entity) {
+    @PUT
+    @Path("{id}")
+    @Consumes({"application/xml", "application/json"})
+    public void edit(@PathParam("id") String id, Games entity) {
         super.edit(entity);
     }
 
-    public void remove(Integer id) {
+    @DELETE
+    @Path("{id}")
+    public void remove(@PathParam("id") String id) {
         super.remove(super.find(id));
     }
 
-    public Game find(Integer id) {
+    @GET
+    @Path("{id}")
+    @Produces({"application/xml", "application/json"})
+    public Games find(@PathParam("id") String id) {
         return super.find(id);
     }
 
-    public List<Game> findAll() {
-       throw new UnsupportedOperationException();//return super.findAll();
+    @GET
+    @Override
+    @Produces({"application/xml", "application/json"})
+    public List<Games> findAll() {
+        return super.findAll();
     }
 
-    public List<Game> findRange(Integer from, Integer to) {
-       throw new UnsupportedOperationException();// return super.findRange(new int[]{from, to});
+    @GET
+    @Path("{from}/{to}")
+    @Produces({"application/xml", "application/json"})
+    public List<Games> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return super.findRange(new int[]{from, to});
     }
 
+    @GET
+    @Path("count")
+    @Produces("text/plain")
     public String countREST() {
         return String.valueOf(super.count());
     }
