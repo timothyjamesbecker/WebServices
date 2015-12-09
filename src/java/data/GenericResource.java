@@ -90,7 +90,15 @@ public class GenericResource {
         String action = variables[0];
         if(action.contains(("login"))){
             return "login action detected!";
+        }else if(action.equals("logout")){
+            return "logout action";
+        }else if (action.contains("create")){
+            return "create new user";
+        }else if (action.contains("findGame")){
+            return "finding game";
+        }else if (action.contains("play")){
+            return "playing game";
         }
-        return "communicated with the server, no login!";
+        return "communicated with the server, no action!";
     }
 }
