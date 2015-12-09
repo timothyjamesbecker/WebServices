@@ -266,7 +266,7 @@ function checkWinner(player){
   return true;
 }
 
-function createChart(num) {
+function createChart(num, difficulty) {
   require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
 
     var mySVG = d3.select("#tictactoe").append("svg")
@@ -282,7 +282,12 @@ function createChart(num) {
         else{
           d3.select(this).style("background-image", "url('images/" + player + ".jpg')");
           svg_array[this.id.charAt(3)] = "x";
-          hardAI();
+          if(difficulty==1){
+              hardAI();
+          }
+          else{
+              easyAI();
+          }
         }
       });
   });
@@ -312,6 +317,8 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     create = '<button id="online"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
     create = '<button id="ai"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="easyai"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
     create = '<button id="logout"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
@@ -354,17 +361,30 @@ require(["dijit/form/Button", "dojo/domReady!"], function (Button) {
   var button4 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
-    label: "Face AI Opponent",
+    label: "Face Hard AI",
     onClick: function () {
       reset("tictactoe");
       resetVariables();
       for (i = 0; i < 9; i++) {
-        createChart(i);
+        createChart(i,1);
       }
     }
   }, "ai").startup();
   
   var button5 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Face Easy AI",
+    onClick: function () {
+      reset("tictactoe");
+      resetVariables();
+      for (i = 0; i < 9; i++) {
+        createChart(i,0);
+      }
+    }
+  }, "easyai").startup();
+  
+  var button6 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
     label: "Logout",
