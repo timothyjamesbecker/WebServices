@@ -83,7 +83,7 @@ public class GenericResource {
         if(action.contains(("login"))){
             return loginUser(json.getString("uid"), json.getString("pwd"));     
         }else if(action.equals("logout")){
-            return "logout action";
+            return logoutUser(json.getString("uid"));
         }else if (action.contains("create")){
             return createUser(json.getString("uid"), json.getString("pwd"));
         }else if (action.contains("findGame")){
@@ -119,5 +119,10 @@ public class GenericResource {
             return true;
         }
         return false;
+    }
+
+    private String logoutUser(String username) {
+        d.remove(d.findActiveplayer(d.findUser(username)));
+        return username + " was logged out";
     }
 }

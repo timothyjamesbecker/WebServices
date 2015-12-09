@@ -345,6 +345,8 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     domConstruct.place(domConstruct.toDom(create), "button");
     create = '<button id="logout"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="testing"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
   });
 
 //attach stuff to buttons
@@ -424,6 +426,24 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
         reset("tictactoe");
     }
   }, "logout").startup();
+  
+  var button7 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Testing Logout",
+    onClick: function (evt) {
+        u = dom.byId("user").value;
+        p = dom.byId("pwd").value;
+        action = "logout";
+        // prevent the page from navigating after submit
+        evt.stopPropagation();
+        evt.preventDefault();
+        //var external = "http://bost.ocks.org/mike/drought/pdsi.json";
+        //var internal = "data/sample.json";
+        var rest     = "http://localhost:8084/Project/apple/generic";
+        post_json(rest,action,u,p); //call to dojo AJAX REST service
+    }
+  }, "testing").startup();
 });
 
 //AMD dojo AJAX
