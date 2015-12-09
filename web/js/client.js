@@ -66,6 +66,7 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
                     evt.preventDefault();
                     //var external = "http://bost.ocks.org/mike/drought/pdsi.json";
                     //var internal = "data/sample.json";
+                    var rest     = "http://localhost:8084/Project/apple/generic";
                     post_json(rest,u,p); //call to dojo AJAX REST service
     }
   }, "login").startup();
@@ -119,8 +120,10 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
 function post_json(url,uid,pwd){
     require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
         function(JSON, dom, on, request){
+            var data = { action:"login", uid: uid, pwd: pwd};  //access the hash
             //console.log(data);
             // Request with some data input
+            request.post(url,
             {   
                 headers:{'X-Requested-With': null,
         		'Content-Type': 'text/plain'},
