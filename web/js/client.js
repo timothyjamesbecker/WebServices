@@ -335,13 +335,14 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
     onClick: function (evt) {
         u = dom.byId("user").value;
                     p = dom.byId("pwd").value;
+                    action = "login";
                     // prevent the page from navigating after submit
                     evt.stopPropagation();
                     evt.preventDefault();
                     //var external = "http://bost.ocks.org/mike/drought/pdsi.json";
                     //var internal = "data/sample.json";
                     var rest     = "http://localhost:8084/Project/apple/generic";
-                    post_json(rest,u,p); //call to dojo AJAX REST service
+                    post_json(rest,action,u,p); //call to dojo AJAX REST service
     }
   }, "login").startup();
   
@@ -349,7 +350,7 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
     iconClass: "dijitIconNewTask",
     showLabel: true,
     label: "Create Account",
-    onClick: function () {
+    onClick: function (evt) {
       //chcek DB for existing user
       //confirm password
       //send user/pass to DB
@@ -405,10 +406,10 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
 });
 
 //AMD dojo AJAX
-function post_json(url,uid,pwd){
+function post_json(url,action,uid,pwd){
     require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
         function(JSON, dom, on, request){
-            var data = { action:"login", uid: uid, pwd: pwd};  //access the hash
+            var data = { action:action, uid: uid, pwd: pwd};  //access the hash
             //console.log(data);
             // Request with some data input
             request.post(url,
@@ -420,11 +421,11 @@ function post_json(url,uid,pwd){
             }).then(
                 function(response){
                     // Display the text file content
-                    dom.byId("resultDiv").innerHTML = "<pre>"+JSON.parse(response)+"</pre>";
+                   // dom.byId("resultDiv").innerHTML = "<pre>"+JSON.parse(response)+"</pre>";
                 },
                 function(error){
                     // Display the error returned
-                    dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
                 }
             );
         });

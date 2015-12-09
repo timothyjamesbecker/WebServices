@@ -65,6 +65,9 @@ public class Users implements Serializable {
     public Users(String uid, String password) {
         this.uid = uid;
         this.password = password;
+        this.wins = 0;
+        this.losses = 0;
+        this.ties = 0;
     }
 
     public String getUid() {
