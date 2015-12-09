@@ -4,9 +4,269 @@
 
 //control one point, eliminate the other points by hovering your point over their exact center
 //document.body.id = "theBody";
-var player = "o"; //get player from server, hard code here for testing
+var svg_array = ["","","","","","","","",""];
+var player = "x";//for ai
+var turn_number = 1;
+var play_chosen = 0;
 
-function createChart(num) {
+function easyAI(){
+    console.log(svg_array);
+    player = "o";
+  if(!checkWinner("x")){
+    var place = Math.floor(Math.random()*10);
+    var filled = true; 
+    for(i=0;i<10;i++){
+      if(svg_array[i]==""){
+        filled = false;
+      }
+    }
+    if(filled==false){
+      if(svg_array[place]==""){
+        document.getElementById("svg" + place).style.backgroundImage = ("url('images/" + player + ".jpg')");
+        svg_array[place] = "o";
+        player = "x";
+        checkWinner("o");
+      }
+      else{
+        easyAI()
+      }
+    }
+  }
+}
+
+function hardAI(){
+  var place = 0;
+  player = "o";
+  if(!checkWinner("x")){
+    var filled = true; 
+    for(i=0;i<10;i++){
+      if(svg_array[i]==""){
+        filled = false;
+      }
+    }
+    if(filled==false){//still spaces on the board
+      if(testVictory("o")!=9){//victory
+        place = testVictory("o");
+        document.getElementById("svg" + place).style.backgroundImage = ("url('images/" + player + ".jpg')");
+        svg_array[place] = "o";
+      }
+      else if(testVictory("x")!=9){//could lose must block x
+        place = testVictory("x");
+        document.getElementById("svg" + place).style.backgroundImage = ("url('images/" + player + ".jpg')");
+        svg_array[place] = "o";
+      }
+      else{
+        if(turn_number==1&&svg_array[4]!="x"){//which play path to use
+          play_chosen="1";
+        }
+        if(play_chosen==0){//player took the center
+          place = Math.floor(Math.random()*4);
+          if(turn_number==1){//take top right corner
+            if(place==0){
+                document.getElementById("svg0").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[0] = "o";
+            }
+            else if(place==1){
+                document.getElementById("svg2").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[2] = "o";
+            }
+            else if(place==2){
+                document.getElementById("svg6").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[6] = "o";
+            }
+            else{
+                document.getElementById("svg8").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[8] = "o";
+            }
+          }
+          else if(turn_number==2){
+            if(svg_array[0]=="o"&&svg_array[8]=="x"){
+                document.getElementById("svg2").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[2] = "o";
+            }
+            else if(svg_array[2]=="o"&&svg_array[6]=="x"){
+                document.getElementById("svg0").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[0] = "o";
+            }
+            else if(svg_array[6]=="o"&&svg_array[2]=="x"){
+                document.getElementById("svg8").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[8] = "o";
+            }
+            else if(svg_array[8]=="o"&&svg_array[0]=="x"){
+                document.getElementById("svg6").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[6] = "o";
+            }
+          }
+          else{easyAI();}
+        }
+        else if(play_chosen==1){//player did not take the center
+          if(turn_number==1){
+              document.getElementById("svg4").style.backgroundImage = ("url('images/" + player + ".jpg')");
+              svg_array[4] = "o";
+          }
+          else if(turn_number==2){
+              document.getElementById("svg1").style.backgroundImage = ("url('images/" + player + ".jpg')");
+              svg_array[1] = "o";
+          }
+          else{easyAI();}
+        }
+        else{
+          easyAI();
+        }
+      }
+    }
+  }
+      turn_number++;
+      player = "x";
+      checkWinner("o");
+}
+
+function testVictory(player){
+  //horizontal top
+  if(svg_array[0]==player&&svg_array[1]==player&&svg_array[2]==""){
+    return 2;
+  }
+  else if(svg_array[0]==player&&svg_array[2]==player&&svg_array[1]==""){
+    return 1;
+  }
+  else if(svg_array[2]==player&&svg_array[1]==player&&svg_array[0]==""){
+    return 0;
+  }
+  //middle horizontal
+  if(svg_array[3]==player&&svg_array[4]==player&&svg_array[5]==""){
+    return 5;
+  }
+  else if(svg_array[3]==player&&svg_array[5]==player&&svg_array[4]==""){
+    return 4;
+  }
+  else if(svg_array[4]==player&&svg_array[5]==player&&svg_array[3]==""){
+    return 3;
+  }
+  //bottom horizontal
+  if(svg_array[6]==player&&svg_array[7]==player&&svg_array[8]==""){
+    return 8;
+  }
+  else if(svg_array[6]==player&&svg_array[8]==player&&svg_array[7]==""){
+    return 7;
+  }
+  else if(svg_array[7]==player&&svg_array[8]==player&&svg_array[6]==""){
+    return 6;
+  }
+  //left vertical
+  if(svg_array[0]==player&&svg_array[3]==player&&svg_array[6]==""){
+    return 6;
+  }
+  else if(svg_array[0]==player&&svg_array[6]==player&&svg_array[3]==""){
+    return 3;
+  }
+  else if(svg_array[3]==player&&svg_array[6]==player&&svg_array[0]==""){
+    return 0;
+  }
+  //middle vertical
+  if(svg_array[1]==player&&svg_array[4]==player&&svg_array[7]==""){
+    return 7;
+  }
+  else if(svg_array[1]==player&&svg_array[7]==player&&svg_array[4]==""){
+    return 4;
+  }
+  else if(svg_array[4]==player&&svg_array[7]==player&&svg_array[1]==""){
+    return 1;
+  }
+  //right vertical
+  if(svg_array[2]==player&&svg_array[5]==player&&svg_array[8]==""){
+    return 8;
+  }
+  else if(svg_array[2]==player&&svg_array[8]==player&&svg_array[5]==""){
+    return 5;
+  }
+  else if(svg_array[5]==player&&svg_array[8]==player&&svg_array[2]==""){
+    return 2;
+  }
+  //diagonal down right
+  if(svg_array[0]==player&&svg_array[4]==player&&svg_array[8]==""){
+    return 8;
+  }
+  else if(svg_array[0]==player&&svg_array[8]==player&&svg_array[4]==""){
+    return 4;
+  }
+  else if(svg_array[4]==player&&svg_array[8]==player&&svg_array[0]==""){
+    return 0;
+  }
+  //diagonal down left
+  if(svg_array[2]==player&&svg_array[4]==player&&svg_array[6]==""){
+    return 6;
+  }
+  else if(svg_array[2]==player&&svg_array[6]==player&&svg_array[4]==""){
+    return 4;
+  }
+  else if(svg_array[4]==player&&svg_array[6]==player&&svg_array[2]==""){
+    return 2;
+  }
+  else{
+    return 9;
+  }
+}
+
+function resetVariables(){
+  svg_array = ["","","","","","","","",""];
+	player = "x";
+	turn_number = 1;
+	play_chosen = 0;
+}
+
+function checkWinner(player){
+  if(svg_array[1]==player){
+    if(svg_array[0]==player&&svg_array[2]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+    else if(svg_array[4]==player&&svg_array[7]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+  }
+  if(svg_array[3]==player){
+    if(svg_array[0]==player&&svg_array[6]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+    else if(svg_array[4]==player&&svg_array[5]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+  }
+  if(svg_array[5]==player){
+    if(svg_array[2]==player&&svg_array[8]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+  }
+  if(svg_array[7]==player){
+    if(svg_array[6]==player&&svg_array[8]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+  }
+  if(svg_array[4]==player){
+    if(svg_array[0]==player&&svg_array[8]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+    else if(svg_array[2]==player&&svg_array[6]==player){
+      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      return true;
+    }
+  }
+  for(i=0;i<10;i++){
+    if(svg_array[i]==""){
+      return false;
+    }
+  }
+  document.getElementById("tictactoe").innerHTML = "Draw, click button to play again";
+  return true;
+}
+
+function createChart(num, difficulty) {
   require(["d3.min/d3", "dojo/dom-construct", "dojo/domReady!"], function (d3, domConstruct) {
 
     var mySVG = d3.select("#tictactoe").append("svg")
@@ -16,7 +276,19 @@ function createChart(num) {
       .style("border", "1px solid black")
       .style("margin-top","-5px")
       .on("click", function () {
-        d3.select(this).style("background-image", "url('images/" + player + ".jpg')");
+        if(svg_array[this.id.charAt(3)]!=""){
+          //do nothing
+        }
+        else{
+          d3.select(this).style("background-image", "url('images/" + player + ".jpg')");
+          svg_array[this.id.charAt(3)] = "x";
+          if(difficulty==1){
+              hardAI();
+          }
+          else{
+              easyAI();
+          }
+        }
       });
   });
 }
@@ -47,6 +319,8 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     create = '<button id="online"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
     create = '<button id="ai"></button>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<button id="easyai"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
     create = '<button id="logout"></button>';
     domConstruct.place(domConstruct.toDom(create), "button");
@@ -97,16 +371,30 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
   var button4 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
-    label: "Face AI Opponent",
+    label: "Face Hard AI",
     onClick: function () {
       reset("tictactoe");
+      resetVariables();
       for (i = 0; i < 9; i++) {
-        createChart(i);
+        createChart(i,1);
       }
     }
   }, "ai").startup();
   
   var button5 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Face Easy AI",
+    onClick: function () {
+      reset("tictactoe");
+      resetVariables();
+      for (i = 0; i < 9; i++) {
+        createChart(i,0);
+      }
+    }
+  }, "easyai").startup();
+  
+  var button6 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
     label: "Logout",

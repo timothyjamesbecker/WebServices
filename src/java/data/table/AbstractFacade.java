@@ -45,11 +45,11 @@ public abstract class AbstractFacade<T> {
     }
 
     public T find(Object id) {
-        T entity = getEntityManager().find(entityClass, id);
-        getEntityManager().getTransaction().begin();
-        getEntityManager().persist(entity);
-        getEntityManager().getTransaction().commit();
-        return entity;
+        //T entity = getEntityManager().find(entityClass, id);
+        //getEntityManager().getTransaction().begin();
+        //getEntityManager().persist(entity);
+        //getEntityManager().getTransaction().commit();
+        return getEntityManager().find(entityClass, id);//entity;
     }
 
     public List<T> findAll() {
