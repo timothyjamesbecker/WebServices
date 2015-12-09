@@ -36,6 +36,8 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     domConstruct.place(domConstruct.toDom(create), "start");
     create = '<div id="button"></div>';
     domConstruct.place(domConstruct.toDom(create), "start");
+    create = '<div id="resultDiv"></div>';
+    domConstruct.place(domConstruct.toDom(create), "start");
     create = '<div id="tictactoe"></div>';
     domConstruct.place(domConstruct.toDom(create), "start");
     create = '<button id="login"></button>';
@@ -51,13 +53,20 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
   });
 
 //attach stuff to buttons
-require(["dijit/form/Button", "dojo/domReady!"], function (Button) {
+require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, dom) {
   var button1 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
     label: "Login",
-    onClick: function () {
-        //send user/pwd to DB to login
+    onClick: function (evt) {
+        u = dom.byId("user").value;
+                    p = dom.byId("pwd").value;
+                    // prevent the page from navigating after submit
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    //var external = "http://bost.ocks.org/mike/drought/pdsi.json";
+                    //var internal = "data/sample.json";
+                    post_json(rest,u,p); //call to dojo AJAX REST service
     }
   }, "login").startup();
   
@@ -105,6 +114,30 @@ require(["dijit/form/Button", "dojo/domReady!"], function (Button) {
     }
   }, "logout").startup();
 });
+
+//AMD dojo AJAX
+function post_json(url,uid,pwd){
+    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+        function(JSON, dom, on, request){
+            //console.log(data);
+            // Request with some data input
+            {   
+                headers:{'X-Requested-With': null,
+        		'Content-Type': 'text/plain'},
+                data: JSON.stringify(data),
+                timeout: 3000     
+            }).then(
+                function(response){
+                    // Display the text file content
+                    dom.byId("resultDiv").innerHTML = "<pre>"+JSON.parse(response)+"</pre>";
+                },
+                function(error){
+                    // Display the error returned
+                    dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                }
+            );
+        });
+}
 
 /* Beckers pre code
 //AMD dojo Buttons

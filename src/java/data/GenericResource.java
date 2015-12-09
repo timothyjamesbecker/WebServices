@@ -83,8 +83,8 @@ public class GenericResource {
     }
     
     @POST
-    @Consumes("application/json")
-    @Produces("application/json")
+    @Consumes("text/plain")
+    @Produces("text/plain")
     public String postJSON(String content) {
         String[] variables = content.split("&");
         String action = variables[0];

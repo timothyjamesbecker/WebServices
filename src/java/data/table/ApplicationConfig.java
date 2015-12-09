@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
  *
  * @author tbecker
  */
-@javax.ws.rs.ApplicationPath("rest")
+@javax.ws.rs.ApplicationPath("apple")
 public class ApplicationConfig extends Application {
 
     @Override
