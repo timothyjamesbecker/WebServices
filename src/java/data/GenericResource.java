@@ -102,7 +102,7 @@ public class GenericResource {
             action = json.getString("action"); 
             
         if(action.contains(("login"))){
-            return loginUser(json.getString("uid"), json.getString("password"));     
+            return loginUser(json.getString("uid"), json.getString("pwd"));     
         }else if(action.equals("logout")){
             return "logout action";
         }else if (action.contains("create")){
@@ -119,11 +119,26 @@ public class GenericResource {
     }
 
     private String createUser(String uid, String password) {
-        d.create(new Users(uid, password));
+        if(!userExists(uid)){
+            d.create(new Users(uid, password));
+        }
         return uid + " account created";
     }
 
-    private String loginUser(String string, String string0) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private String loginUser(String username, String password) {
+        Users curUser = d.findUser(username);
+        if(curUser.getPassword().equals(password)){
+            d.create(new Activeplayers(username));
+            return username + "was logged in";
+        }else{
+            return "unable to login";
+        }
+    }
+    
+    private boolean userExists(String username){
+        if(d.findUser(username) != null){
+            return true;
+        }
+        return false;
     }
 }
