@@ -20,5 +20,7 @@ Main Page Comments Here
         <link rel="stylesheet" href="css/client.css">
         <script src="js/client.js"></script>
     </head>
-    <body id="start" class="claro"></body>
+    <body id="start" class="claro">
+        <div id="wrapper"></div>
+    </body>
 </html>

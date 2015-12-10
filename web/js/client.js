@@ -301,7 +301,8 @@ function reset(stringID) {
 //create the divs and buttons
 require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
   function (domConstruct, dom, win) {
-    var create = "";
+    var create = '<header><img src="images/tictactoe.jpg" id="banner"></header>';
+    domConstruct.place(domConstruct.toDom(create), "wrapper");
     create = '<input id="user"/>';
     domConstruct.place(domConstruct.toDom(create), "start");
     create = '<input id="pwd" type="password"/>';

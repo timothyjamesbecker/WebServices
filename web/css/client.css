@@ -4,8 +4,15 @@ Comments Here
 #button {
   margin-bottom: 15px;
 }
-
 #tictactoe {
   width: 606px;
   height:606px;
+}
+#wrapper{
+    width:80%;
+    margin-right:auto;
+    margin-left:auto;
+}
+#banner{
+    display:none;
 }
