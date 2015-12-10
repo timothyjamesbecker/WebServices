@@ -303,10 +303,12 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
   function (domConstruct, dom, win) {
     var create = '<header><img src="images/tictactoe.jpg" id="banner"></header>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
-    create = '<input id="user"/>';
+    create = '<div id="userlogin"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
-    create = '<input id="pwd" type="password"/>';
-    domConstruct.place(domConstruct.toDom(create), "wrapper");
+    create = '<label id="username">User Name:<input id="user"/></label>';
+    domConstruct.place(domConstruct.toDom(create), "userlogin");
+    create = '<label id="password">Password:<input id="pwd" type="password"/></label>';
+    domConstruct.place(domConstruct.toDom(create), "userlogin");
     create = '<div id="button"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
     create = '<div id="resultDiv"></div>';

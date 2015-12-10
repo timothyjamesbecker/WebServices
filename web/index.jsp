@@ -17,7 +17,7 @@ Main Page Comments Here
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css">
         <!-- dynamically load dojo 1.10.4 library via AMD-->
         <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js" data-dojo-config='packages: [{ name: "d3.min", location: "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/" }], async: true, parseOnLoad: true'>  </script>
-        <link rel="stylesheet" href="css/client.css">
+        <link rel="stylesheet" href="css/client.css" type="type/css">
         <script src="js/client.js"></script>
     </head>
     <body id="start" class="claro">

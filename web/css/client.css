@@ -1,6 +1,3 @@
-/*
-Comments Here
-*/
 #button {
   margin-bottom: 15px;
 }
@@ -18,4 +15,28 @@ Comments Here
 #banner{
     width:100%;
     height:100%;
+}
+#button{
+    width:100%;
+    text-align: center;
+}
+#userlogin{
+    max-width:300px;
+    margin-right:auto;
+    margin-left:auto;
+    text-align: center;
+}
+#password{
+    margin:5px;
+    display: block;
+}
+#username{
+   margin:5px;
+   display: block;
+}
+#pwd{
+    float: right;
+}
+#user{
+    float: right;
 }
