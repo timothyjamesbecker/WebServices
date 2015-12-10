@@ -462,11 +462,11 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
   var button7 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
-    label: "Testing Logout",
+    label: "Testing loss",
     onClick: function (evt) {
         u = dom.byId("user").value;
         p = dom.byId("pwd").value;
-        action = "logout";
+        action = "tie";
         // prevent the page from navigating after submit
         evt.stopPropagation();
         evt.preventDefault();

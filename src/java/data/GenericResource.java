@@ -82,6 +82,12 @@ public class GenericResource {
             return logoutUser(json.getString("uid"));
         }else if (action.contains("create")){
             return createUser(json.getString("uid"), json.getString("pwd"));
+        }else if (action.contains("win")){
+            return incrementWin(json.getString("uid"));
+        }else if (action.contains("loss")){
+           return incrementLoss(json.getString("uid"));
+        }else if (action.contains("tie")){
+           return incrementTie(json.getString("uid"));
         }else if (action.contains("findGame")){
             return "finding game";
         }else if (action.contains("play")){
@@ -89,7 +95,7 @@ public class GenericResource {
         }
         return "communicated with the server, no action!";
     }   catch(Exception e){
-            return null;
+            return "an unexpected error has occured";
         }
     }
 
@@ -120,5 +126,26 @@ public class GenericResource {
     private String logoutUser(String username) {
         d.remove(d.findActiveplayer(d.findUser(username)));
         return username + " was logged out";
+    }
+
+    private String incrementWin(String username) {
+        Users user = d.findUser(username);
+        user.setWins(user.getWins() + 1);
+        d.save(user);
+        return username + "wins";
+    }
+
+    private String incrementLoss(String username) {
+        Users user = d.findUser(username);
+        user.setLosses(user.getLosses() + 1);
+        d.save(user);
+        return username + "loses";
+    }
+
+    private String incrementTie(String username) {
+        Users user = d.findUser(username);
+        user.setTies(user.getTies() + 1);
+        d.save(user);
+        return username + "tied";
     }
 }
