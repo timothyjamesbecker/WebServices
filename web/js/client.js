@@ -105,8 +105,26 @@ function hardAI(){
               svg_array[4] = "o";
           }
           else if(turn_number==2){
-              document.getElementById("svg1").style.backgroundImage = ("url('images/" + player + ".jpg')");
-              svg_array[1] = "o";
+              place = Math.floor(Math.random()*4);
+            if(place==0&&svg_array[1]==""){
+                document.getElementById("svg1").style.backgroundImage = ("url('images/" + player + ".jpg')");
+                svg_array[1] = "o";
+            }
+            else if(place==1&&svg_array[3]==""){
+                document.getElementById("svg3").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[3] = "o";
+            }
+            else if(place==2&&svg_array[5]==""){
+                document.getElementById("svg5").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[5] = "o";
+            }
+            else if(place==3&&svg_array[7]==""){
+                document.getElementById("svg7").style.backgroundImage = ("url('images/" + player + ".jpg')");
+            	svg_array[7] = "o";
+            }
+            else{
+                hardAI();
+            }
           }
           else{easyAI();}
         }
