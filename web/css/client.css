@@ -7,12 +7,15 @@ Comments Here
 #tictactoe {
   width: 606px;
   height:606px;
+  margin-right: auto;
+  margin-left: auto;
 }
 #wrapper{
-    width:80%;
+    width:85%;
     margin-right:auto;
     margin-left:auto;
 }
 #banner{
-    display:none;
+    width:100%;
+    height:100%;
 }
