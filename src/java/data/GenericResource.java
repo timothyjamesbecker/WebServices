@@ -31,9 +31,6 @@ import javax.ws.rs.PUT;
 @Path("generic")
 public class GenericResource {
 
-    UsersFacade usersFacade;
-    GamesFacade gamesFacade;
-    ActiveplayersFacade activeplayersFacade;
     @Context
     private UriInfo context;
     private Database d;
@@ -42,9 +39,6 @@ public class GenericResource {
      * Creates a new instance of GenericResource
      */
     public GenericResource() {
-        usersFacade = new UsersFacade();
-        gamesFacade = new GamesFacade();
-        activeplayersFacade = new ActiveplayersFacade();
         d = new Database();
     }
 
@@ -57,24 +51,9 @@ public class GenericResource {
     @Path("{id}")
     @Produces("application/json")
     public String getJson(@PathParam("id") String id) {
-        gamesFacade.remove(gamesFacade.find(activeplayersFacade.find(id).getGame()));
+        //gamesFacade.remove(gamesFacade.find(activeplayersFacade.find(id).getGame()));
         return "Asdf";
         //return activeplayersFacade.find(usersFacade.find(id).getUid()).toString();//usersFacade.find(id).getPassword();
-    }
-
-    /**
-     * Retrieves representation of an instance of data.GenericResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("{id}/{password}")
-    @Produces("application/json")
-    public String getJsonChangepass(@PathParam("id") String id, @PathParam("password") String password) {
-        Users user = usersFacade.find(id);
-        user.setPassword(password);
-        // usersFacade.edit(user);
-        return "Password changed to " + usersFacade.find(id).getPassword() + " (it should show: " + password + ")";
     }
 
     /**

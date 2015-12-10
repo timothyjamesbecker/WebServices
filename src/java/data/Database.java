@@ -30,19 +30,15 @@ public class Database {
 
     public Activeplayers findActiveplayer(Users user) throws NullPointerException {
         try {
-            Activeplayers activeplayer = activeplayersFacade.find(user.getUid());
-            activeplayersFacade.edit(activeplayer);
-            return (activeplayer);
+            return activeplayersFacade.find(user.getUid());
         } catch (NullPointerException e) {
             return null;
         }
     }
-    
-        public Activeplayers findActiveplayers(String id) throws NullPointerException {
+
+    public Activeplayers findActiveplayers(String id) throws NullPointerException {
         try {
-            Activeplayers activeplayers = activeplayersFacade.find(id);
-            activeplayersFacade.edit(activeplayers);
-            return activeplayers;
+            return activeplayersFacade.find(id);
         } catch (NullPointerException e) {
             return null;
         }
@@ -50,9 +46,7 @@ public class Database {
 
     public Activeplayers findOtherActiveplayer(Activeplayers activeplayer) throws NullPointerException {
         try {
-            Activeplayers tempActiveplayer = activeplayersFacade.find(activeplayer.getInGameWith());
-            activeplayersFacade.edit(tempActiveplayer);
-            return (activeplayer);
+            return activeplayersFacade.find(activeplayer.getInGameWith());
         } catch (NullPointerException e) {
             return null;
         }
@@ -60,9 +54,7 @@ public class Database {
 
     public Users findUser(String id) throws NullPointerException {
         try {
-            Users user = usersFacade.find(id);
-            usersFacade.edit(user);
-            return user;
+            return usersFacade.find(id);
         } catch (NullPointerException e) {
             return null;
         }
@@ -70,15 +62,13 @@ public class Database {
 
     public Games findGame(Users user) throws NullPointerException {
         try {
-            Games game = gamesFacade.find(findActiveplayer(user).getGame());
-            gamesFacade.edit(game);
-            return game;
+            return gamesFacade.find(findActiveplayer(user).getGame());
         } catch (NullPointerException e) {
             return null;
         }
     }
 
-    public List<Activeplayers> findWaitingActiveplayersDetached(Activeplayers entity) {
+    public List<Activeplayers> findWaitingActiveplayers(Activeplayers entity) {
         try {
             return activeplayersFacade.findByGame(entity.getUid());
         } catch (NoResultException e) {
@@ -88,8 +78,7 @@ public class Database {
 
     public Activeplayers findWaitingActiveplayer(Activeplayers entity) {
         try {
-            Activeplayers searchingplayer = activeplayersFacade.findByGame(entity.getUid()).get(0);
-            return findActiveplayers(searchingplayer.getUid());
+            return activeplayersFacade.findByGame(entity.getUid()).get(0);
         } catch (NoResultException e) {
             return null;
         }
@@ -122,4 +111,15 @@ public class Database {
         gamesFacade.remove(entity);
     }
 
+    public void save(Users entity) {
+        usersFacade.edit(entity);
+    }
+
+    public void save(Activeplayers entity) {
+        activeplayersFacade.edit(entity);
+    }
+
+    public void save(Games entity) {
+        gamesFacade.edit(entity);
+    }
 }
