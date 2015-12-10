@@ -8,6 +8,9 @@ package data;
 import data.table.ActiveplayersFacade;
 import data.table.GamesFacade;
 import data.table.UsersFacade;
+import static java.util.Collections.list;
+import java.util.List;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -30,6 +33,16 @@ public class Database {
             Activeplayers activeplayer = activeplayersFacade.find(user.getUid());
             activeplayersFacade.edit(activeplayer);
             return (activeplayer);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+    
+        public Activeplayers findActiveplayers(String id) throws NullPointerException {
+        try {
+            Activeplayers activeplayers = activeplayersFacade.find(id);
+            activeplayersFacade.edit(activeplayers);
+            return activeplayers;
         } catch (NullPointerException e) {
             return null;
         }
@@ -61,6 +74,23 @@ public class Database {
             gamesFacade.edit(game);
             return game;
         } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    public List<Activeplayers> findWaitingActiveplayersDetached(Activeplayers entity) {
+        try {
+            return activeplayersFacade.findByGame(entity.getUid());
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public Activeplayers findWaitingActiveplayer(Activeplayers entity) {
+        try {
+            Activeplayers searchingplayer = activeplayersFacade.findByGame(entity.getUid()).get(0);
+            return findActiveplayers(searchingplayer.getUid());
+        } catch (NoResultException e) {
             return null;
         }
     }

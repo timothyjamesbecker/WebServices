@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -42,6 +43,12 @@ public class ActiveplayersFacade extends AbstractFacade<Activeplayers> {
         return super.find(id);
     }
 
+    public List<Activeplayers> findByGame(String searchingPlayerId) {
+        Query query = em.createNamedQuery("Activeplayers.findBySearching");
+        query.setParameter("uid", searchingPlayerId);query.setParameter("searching", true);
+        return query.getResultList();
+    }
+
     public List<Activeplayers> findAll() {
         return super.findAll();
     }
@@ -58,5 +65,5 @@ public class ActiveplayersFacade extends AbstractFacade<Activeplayers> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

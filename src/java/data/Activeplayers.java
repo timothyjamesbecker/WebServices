@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Activeplayers.findAll", query = "SELECT a FROM Activeplayers a"),
     @NamedQuery(name = "Activeplayers.findByUid", query = "SELECT a FROM Activeplayers a WHERE a.uid = :uid"),
     @NamedQuery(name = "Activeplayers.findByGame", query = "SELECT a FROM Activeplayers a WHERE a.game = :game"),
-    @NamedQuery(name = "Activeplayers.findByInGameWith", query = "SELECT a FROM Activeplayers a WHERE a.inGameWith = :inGameWith")})
+    @NamedQuery(name = "Activeplayers.findByInGameWith", query = "SELECT a FROM Activeplayers a WHERE a.inGameWith = :inGameWith"),
+    @NamedQuery(name = "Activeplayers.findBySearching", query = "SELECT a FROM Activeplayers a WHERE a.searching = :searching AND a.uid <> :uid")})
 public class Activeplayers implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,6 +46,9 @@ public class Activeplayers implements Serializable {
     private String inGameWith;
     @Column(name = "player")
     private boolean player;
+    @NotNull
+    @Column(name = "searching")
+    private boolean searching;
 
     public Activeplayers() {
     }
@@ -85,6 +89,14 @@ public class Activeplayers implements Serializable {
         this.player = player;
     }
 
+    public boolean getSearching() {
+        return searching;
+    }
+
+    public void setSearching(boolean searching) {
+        this.searching = searching;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,5 +121,5 @@ public class Activeplayers implements Serializable {
     public String toString() {
         return "data.Activeplayers[ uid=" + uid + " ]";
     }
-    
+
 }
