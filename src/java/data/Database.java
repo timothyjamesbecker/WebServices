@@ -29,43 +29,23 @@ public class Database {
     }
 
     public Activeplayers findActiveplayer(Users user){
-        try {
             return activeplayersFacade.find(user.getUid());
-        } catch (NullPointerException e) {
-            return null;
-        }
     }
 
     public Activeplayers findActiveplayers(String id){
-        try {
             return activeplayersFacade.find(id);
-        } catch (NullPointerException e) {
-            return null;
-        }
     }
 
     public Activeplayers findOtherActiveplayer(Activeplayers activeplayer){
-        try {
             return activeplayersFacade.find(activeplayer.getInGameWith());
-        } catch (NullPointerException e) {
-            return null;
-        }
     }
 
     public Users findUser(String id){
-        try {
             return usersFacade.find(id);
-        } catch (NullPointerException e) {
-            return null;
-        }
     }
 
     public Games findGame(Users user){
-        try {
             return gamesFacade.find(findActiveplayer(user).getGame());
-        } catch (NullPointerException e) {
-            return null;
-        }
     }
 
     public List<Activeplayers> findWaitingActiveplayers(Activeplayers entity) {
