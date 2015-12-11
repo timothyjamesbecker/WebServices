@@ -321,32 +321,41 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
   function (domConstruct, dom, win) {
     var create = '<header><img src="images/tictactoe.jpg" id="banner"></header>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
+    //form div
     create = '<div id="userlogin"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
     create = '<label id="username">User Name:<input id="user"/></label>';
     domConstruct.place(domConstruct.toDom(create), "userlogin");
     create = '<label id="password">Password:<input id="pwd" type="password"/></label>';
     domConstruct.place(domConstruct.toDom(create), "userlogin");
+    
+    //button div
     create = '<div id="button"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
+    create = '<div id="loginbuttons"></div>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    create = '<div id="tictactoebuttons"></div>';
+    domConstruct.place(domConstruct.toDom(create), "button");
+    
     create = '<div id="resultDiv"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
     create = '<div id="tictactoe"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
+    
     create = '<button id="login"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
+    domConstruct.place(domConstruct.toDom(create), "loginbuttons");
     create = '<button id="create"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
-    create = '<button id="online"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
-    create = '<button id="ai"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
-    create = '<button id="easyai"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
+    domConstruct.place(domConstruct.toDom(create), "loginbuttons");
     create = '<button id="logout"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
+    domConstruct.place(domConstruct.toDom(create), "loginbuttons");
+    create = '<button id="online"></button>';
+    domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
+    create = '<button id="ai"></button>';
+    domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
+    create = '<button id="easyai"></button>';
+    domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
     create = '<button id="testing"></button>';
-    domConstruct.place(domConstruct.toDom(create), "button");
+    domConstruct.place(domConstruct.toDom(create), "loginbuttons");
   });
 
 //attach stuff to buttons
