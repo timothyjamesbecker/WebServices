@@ -40,3 +40,8 @@
 #user{
     float: right;
 }
+#resultDiv{
+    visibility:hidden;
+    text-align:center;
+    margin-bottom:10px;
+}

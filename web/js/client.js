@@ -226,52 +226,69 @@ function testVictory(player){
 }
 
 function resetVariables(){
-  svg_array = ["","","","","","","","",""];
-	player = "x";
-	turn_number = 1;
-	play_chosen = 0;
+    svg_array = ["","","","","","","","",""];
+    player = "x";
+    turn_number = 1;
+    play_chosen = 0;
+    document.getElementById("resultDiv").style.visibility = "hidden";
 }
 
 function checkWinner(player){
   if(svg_array[1]==player){
     if(svg_array[0]==player&&svg_array[2]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
     else if(svg_array[4]==player&&svg_array[7]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
   }
   if(svg_array[3]==player){
     if(svg_array[0]==player&&svg_array[6]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
     else if(svg_array[4]==player&&svg_array[5]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
   }
   if(svg_array[5]==player){
     if(svg_array[2]==player&&svg_array[8]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
   }
   if(svg_array[7]==player){
     if(svg_array[6]==player&&svg_array[8]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
   }
   if(svg_array[4]==player){
     if(svg_array[0]==player&&svg_array[8]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
     else if(svg_array[2]==player&&svg_array[6]==player){
-      document.getElementById("tictactoe").innerHTML += "player " + player + " has won";
+      document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
+      document.getElementById("tictactoe").innerHTML += "";
+      document.getElementById("resultDiv").style.visibility = "visible";
       return true;
     }
   }
@@ -280,7 +297,9 @@ function checkWinner(player){
       return false;
     }
   }
-  document.getElementById("tictactoe").innerHTML = "Draw, click button to play again";
+  document.getElementById("resultDiv").innerHTML = "Draw, choose difficulty and click the button to play again";
+  document.getElementById("tictactoe").innerHTML += "";
+  document.getElementById("resultDiv").style.visibility = "visible";
   return true;
 }
 
@@ -337,7 +356,7 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     create = '<div id="tictactoebuttons"></div>';
     domConstruct.place(domConstruct.toDom(create), "button");
     
-    create = '<div id="resultDiv"></div>';
+    create = '<div id="resultDiv">YOU HAVE WON!!!</div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
     create = '<div id="tictactoe"></div>';
     domConstruct.place(domConstruct.toDom(create), "wrapper");
