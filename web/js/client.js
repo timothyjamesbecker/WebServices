@@ -310,6 +310,7 @@ function createChart(num, difficulty) {
       .attr("width", 200)
       .attr("height", 200)
       .attr("id", "svg" + num)
+      .attr("class","tictactoeboard")
       .style("border", "1px solid black")
       .style("margin-top","-5px")
       .on("click", function () {

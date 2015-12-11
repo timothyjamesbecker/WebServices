@@ -7,6 +7,9 @@
   margin-right: auto;
   margin-left: auto;
 }
+.tictactoeboard{
+    background-color: #ffffff;
+}
 #wrapper{
     width:85%;
     margin-right:auto;
@@ -44,4 +47,7 @@
     visibility:hidden;
     text-align:center;
     margin-bottom:10px;
+}
+#start{
+    background-color: #f2f2f2;
 }
