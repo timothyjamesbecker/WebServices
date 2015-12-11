@@ -424,6 +424,9 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
       for (i = 0; i < 9; i++) {
         createChart(i,0);
       }
+      if(Math.floor(Math.random()*2)==0){
+          easyAI();
+      }
     }
   }, "easyai").startup();
   
