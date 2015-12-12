@@ -430,8 +430,6 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     domConstruct.place(domConstruct.toDom(create), "loginbuttons");
     create = '<button id="logout"></button>';
     domConstruct.place(domConstruct.toDom(create), "loginbuttons");
-    create = '<button id="online"></button>';
-    domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
     create = '<button id="ai"></button>';
     domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
     create = '<button id="easyai"></button>';
@@ -478,18 +476,6 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
         post_create(u,p);
     }
   }, "create").startup();
-  
-  var button3 = new Button({
-    iconClass: "dijitIconNewTask",
-    showLabel: true,
-    label: "Find Online Opponent",
-    onClick: function () {
-      reset("tictactoe");
-      for (i = 0; i < 9; i++) {
-        createChart(i);
-      }
-    }
-  }, "online").startup();
   
   var button4 = new Button({
     iconClass: "dijitIconNewTask",
