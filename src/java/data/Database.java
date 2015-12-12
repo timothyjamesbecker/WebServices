@@ -8,7 +8,6 @@ package data;
 import data.table.ActiveplayersFacade;
 import data.table.GamesFacade;
 import data.table.UsersFacade;
-import static java.util.Collections.list;
 import java.util.List;
 import javax.persistence.NoResultException;
 

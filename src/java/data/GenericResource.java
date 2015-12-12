@@ -5,14 +5,10 @@
  */
 package data;
 
-import data.table.ActiveplayersFacade;
-import data.table.GamesFacade;
-import data.table.UsersFacade;
 import java.io.StringReader;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.persistence.EntityManager;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
