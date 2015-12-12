@@ -398,6 +398,9 @@ function reset(stringID) {
   document.getElementById(stringID).innerHTML = "";
 }
 
+for (i = 0; i < 9; i++) {
+    createChart(i,0);
+}
 //create the divs and buttons
 require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
   function (domConstruct, dom, win) {
@@ -487,6 +490,7 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
       for (i = 0; i < 9; i++) {
         createChart(i,1);
       }
+      dom.byId("tictactoe").style.visibility = "visible";
     }
   }, "ai").startup();
   
@@ -500,6 +504,7 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
       for (i = 0; i < 9; i++) {
         createChart(i,0);
       }
+      dom.byId("tictactoe").style.visibility = "visible";
       if(Math.floor(Math.random()*2)==0){
           easyAI();
       }
