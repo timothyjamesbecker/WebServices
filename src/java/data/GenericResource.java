@@ -39,20 +39,6 @@ public class GenericResource {
     }
 
     /**
-     * Retrieves representation of an instance of data.GenericResource
-     *
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Path("{id}")
-    @Produces("application/json")
-    public String getJson(@PathParam("id") String id) {
-        //gamesFacade.remove(gamesFacade.find(activeplayersFacade.find(id).getGame()));
-        return "Asdf";
-        //return activeplayersFacade.find(usersFacade.find(id).getUid()).toString();//usersFacade.find(id).getPassword();
-    }
-
-    /**
      * PUT method for updating or creating an instance of GenericResource
      *
      * @param content representation for the resource
