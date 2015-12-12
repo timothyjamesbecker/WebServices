@@ -8,6 +8,7 @@ var svg_array = ["","","","","","","","",""];
 var player = "x";//for ai
 var turn_number = 1;
 var play_chosen = 0;
+localStorage.username = "";
 
 function easyAI(){
     console.log(svg_array);
@@ -239,12 +240,22 @@ function checkWinner(player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
     else if(svg_array[4]==player&&svg_array[7]==player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
   }
@@ -253,12 +264,22 @@ function checkWinner(player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
     else if(svg_array[4]==player&&svg_array[5]==player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
   }
@@ -267,6 +288,11 @@ function checkWinner(player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
   }
@@ -275,6 +301,11 @@ function checkWinner(player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
   }
@@ -283,12 +314,22 @@ function checkWinner(player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
     else if(svg_array[2]==player&&svg_array[6]==player){
       document.getElementById("resultDiv").innerHTML = "player " + player + " has won";
       document.getElementById("tictactoe").innerHTML += "";
       document.getElementById("resultDiv").style.visibility = "visible";
+      if(player.indexOf("x") !== -1){
+          post_win(localStorage.username);
+      }else{
+          post_loss(localStorage.username);
+      }
       return true;
     }
   }
@@ -300,6 +341,9 @@ function checkWinner(player){
   document.getElementById("resultDiv").innerHTML = "Draw, choose difficulty and click the button to play again";
   document.getElementById("tictactoe").innerHTML += "";
   document.getElementById("resultDiv").style.visibility = "visible";
+  if(player.indexOf("x") !== -1){
+    post_tie(localStorage.username);
+  }
   return true;
 }
 
@@ -374,7 +418,12 @@ require(["dojo/dom-construct", "dojo/dom", "dojo/domReady!"],
     domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
     create = '<button id="easyai"></button>';
     domConstruct.place(domConstruct.toDom(create), "tictactoebuttons");
-    create = '<button id="testing"></button>';
+    
+    create = '<button id="wins"></button>';
+    domConstruct.place(domConstruct.toDom(create), "loginbuttons");
+    create = '<button id="losses"></button>';
+    domConstruct.place(domConstruct.toDom(create), "loginbuttons");
+    create = '<button id="ties"></button>';
     domConstruct.place(domConstruct.toDom(create), "loginbuttons");
   });
 
@@ -387,14 +436,12 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
     onClick: function (evt) {
         u = dom.byId("user").value;
                     p = dom.byId("pwd").value;
-                    action = "login";
                     // prevent the page from navigating after submit
                     evt.stopPropagation();
                     evt.preventDefault();
                     //var external = "http://bost.ocks.org/mike/drought/pdsi.json";
                     //var internal = "data/sample.json";
-                    var rest     = "http://localhost:8084/Project/apple/generic";
-                    post_json(rest,action,u,p); //call to dojo AJAX REST service
+                    post_login(u,p); //call to dojo AJAX REST service
     }
   }, "login").startup();
   
@@ -403,9 +450,14 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
     showLabel: true,
     label: "Create Account",
     onClick: function (evt) {
-      //chcek DB for existing user
-      //confirm password
-      //send user/pass to DB
+        u = dom.byId("user").value;
+        p = dom.byId("pwd").value;
+        action = "create";
+        
+        evt.stopPropagation();
+        evt.preventDefault();
+        
+        post_create(u,p);
     }
   }, "create").startup();
   
@@ -456,33 +508,51 @@ require(["dijit/form/Button", "dojo/dom", "dojo/domReady!"], function (Button, d
     label: "Logout",
     onClick: function () {
         reset("tictactoe");
+        var u = localStorage.username;
+        post_logout(u);
     }
   }, "logout").startup();
   
-  var button7 = new Button({
+    var button7 = new Button({
     iconClass: "dijitIconNewTask",
     showLabel: true,
-    label: "Testing loss",
-    onClick: function (evt) {
-        u = dom.byId("user").value;
-        p = dom.byId("pwd").value;
-        action = "tie";
-        // prevent the page from navigating after submit
-        evt.stopPropagation();
-        evt.preventDefault();
-        //var external = "http://bost.ocks.org/mike/drought/pdsi.json";
-        //var internal = "data/sample.json";
-        var rest     = "http://localhost:8084/Project/apple/generic";
-        post_json(rest,action,u,p); //call to dojo AJAX REST service
+    label: "Get Wins",
+    onClick: function () {
+        var type = "win";
+        var u = localStorage.username;
+        post_checkStat(u, type);
     }
-  }, "testing").startup();
+  }, "wins").startup();
+  
+      var button8 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Get Losses",
+    onClick: function () {
+        var type = "loss";
+        var u = localStorage.username;
+        post_checkStat(u, type);
+    }
+  }, "losses").startup();
+  
+    var button9 = new Button({
+    iconClass: "dijitIconNewTask",
+    showLabel: true,
+    label: "Get Ties",
+    onClick: function () {
+        var type = "tie";
+        var u = localStorage.username;
+        post_checkStat(u, type);
+    }
+  }, "ties").startup();
 });
-
+  
 //AMD dojo AJAX
-function post_json(url,action,uid,pwd){
+function post_login(uid,pwd){
     require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
         function(JSON, dom, on, request){
-            var data = { action:action, uid: uid, pwd: pwd};  //access the hash
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"login", uid: uid, pwd: pwd};  //access the hash
             //console.log(data);
             // Request with some data input
             request.post(url,
@@ -493,8 +563,12 @@ function post_json(url,action,uid,pwd){
                 timeout: 3000     
             }).then(
                 function(response){
-                    // Display the text file content
-                   // dom.byId("resultDiv").innerHTML = "<pre>"+JSON.parse(response)+"</pre>";
+                    if(response.indexOf("success") !== -1){
+                        localStorage.username = uid;
+                        alert("Welcome " + uid + "!");
+                    }else{
+                        alert("error occured logging in");
+                    }
                 },
                 function(error){
                     // Display the error returned
@@ -504,97 +578,164 @@ function post_json(url,action,uid,pwd){
         });
 }
 
-/* Beckers pre code
-//AMD dojo Buttons
-//dojo button attached to D3 function via AMD
-require(["dijit/form/Button", "dijit/form/ValidationTextBox",
-         "dojo/dom","dojo/dom-construct",
-         "dojo/dom-class","dojo/domReady!"],
-    function(Button,ValidationTextBox,dom,con,cl) {
-        var btn1 = con.create("button",{Id:"btn1"},"start");
-        var in1  = con.create("input",{Id:"uid"},"start");
-        var in2  = con.create("input",{Id:"pwd"},"start");
-        var res = con.create("div",{Id:"resultDiv"},"start");
-        var div  = con.create("div",{Id:"gfx"},"start");
-        
-        var uid_t = new ValidationTextBox({
-                name: "user",
-                type: "text"
-        }, "uid");
-        
-        var pwd_t = new ValidationTextBox({
-                name: "password",
-                type: "password"
-        }, "pwd");     
-        
-        var button1 = new Button({
-		iconClass:"dijitIconDatabase",
-		showLabel:true,
-		label: "JSON", // analogous to title when showLabel is false
-		onClick: function(evt){
-                    u = dom.byId("uid").value;
-                    p = dom.byId("pwd").value;
-                    // prevent the page from navigating after submit
-                    evt.stopPropagation();
-                    evt.preventDefault();
-                    var rest     = "http://localhost:8084/Project/rest/";
-                    post_json(rest,u,p); //call to dojo AJAX REST service
-                }
-	}, "btn1").startup();
-        
-});
-
-//AMD dojo get form strings with pwd blocker?
-
-//AMD dojo AJAX
-function get_json(url){
+function post_create(uid,pwd){
     require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
         function(JSON, dom, on, request){
-            // Request the text file
-            request.get(url,
-            {
-                headers:{'X-Requested-With': null,
-        		'Content-Type': 'application/json'}
-            }).then(
-                function(response){
-                    // Display the text file content
-                    dom.byId("resultDiv").innerHTML = "<pre>"+response+"</pre>";
-                },
-                function(error){
-                    // Display the error returned
-                    dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
-                }
-            );
-        });
-}
-
-//AMD dojo AJAX
-function post_json(url,uid,pwd){
-    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
-        function(JSON, dom, on, request){
-            var data = {"uid":uid,"name":pwd};  //access the hash
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"create", uid: uid, pwd: pwd};  //access the hash
             //console.log(data);
             // Request with some data input
-            request.post(url+"data.table",
+            request.post(url,
             {   
                 headers:{'X-Requested-With': null,
-                         'Content-Type': 'application/json'},
+        		'Content-Type': 'text/plain'},
                 data: JSON.stringify(data),
                 timeout: 3000     
             }).then(
                 function(response){
-                    // Display the text file content
-                    var obj = JSON.parse(response);
-                    console.log(obj);
-                    //obj.uid_pwd_hash
-                    dom.byId("resultDiv").innerHTML = "<pre>"+obj+"</pre>";
+                    if(response.indexOf("success") !== -1){
+                        localStorage.username = uid;
+                    }else{
+                        alert("error occured creating account");
+                    }
                 },
                 function(error){
                     // Display the error returned
-                    dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
                 }
             );
         });
 }
 
-*/
+function post_logout(uid){
+    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+        function(JSON, dom, on, request){
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"logout", uid: uid};  //access the hash
+            //console.log(data);
+            // Request with some data input
+            request.post(url,
+            {   
+                headers:{'X-Requested-With': null,
+        		'Content-Type': 'text/plain'},
+                data: JSON.stringify(data),
+                timeout: 3000     
+            }).then(
+                function(response){
+                    if(response.indexOf("success") !== -1){
+                        localStorage.username = "";
+                    }else{
+                        alert("error occured logging out");
+                    }
+                },
+                function(error){
+                    // Display the error returned
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                }
+            );
+        });
+}
+
+function post_win(uid){
+    if(uid != null && uid != undefined && uid != ""){
+    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+        function(JSON, dom, on, request){
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"win", uid: uid};  //access the hash
+            //console.log(data);
+            // Request with some data input
+            request.post(url,
+            {   
+                headers:{'X-Requested-With': null,
+        		'Content-Type': 'text/plain'},
+                data: JSON.stringify(data),
+                timeout: 3000     
+            }).then(
+                function(response){
+                    
+                },
+                function(error){
+                    // Display the error returned
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                }
+            );
+        });
+    }
+}
+
+function post_loss(uid){
+    if(uid != null && uid != undefined && uid != ""){
+    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+        function(JSON, dom, on, request){
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"loss", uid: uid};  //access the hash
+            //console.log(data);
+            // Request with some data input
+            request.post(url,
+            {   
+                headers:{'X-Requested-With': null,
+        		'Content-Type': 'text/plain'},
+                data: JSON.stringify(data),
+                timeout: 3000     
+            }).then(
+                function(response){
+                },
+                function(error){
+                    // Display the error returned
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                }
+            );
+        });
+    }
+}
+
+function post_tie(uid){
+    if(uid != null && uid != undefined && uid != ""){
+    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+        function(JSON, dom, on, request){
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"tie", uid: uid};  //access the hash
+            //console.log(data);
+            // Request with some data input
+            request.post(url,
+            {   
+                headers:{'X-Requested-With': null,
+        		'Content-Type': 'text/plain'},
+                data: JSON.stringify(data),
+                timeout: 3000     
+            }).then(
+                function(response){
+                },
+                function(error){
+                    // Display the error returned
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                }
+            );
+        });
+    }
+}
+
+function post_checkStat(uid,type){
+    require(["dojo/json","dojo/dom", "dojo/on", "dojo/request", "dojo/domReady!"],
+        function(JSON, dom, on, request){
+            var url = "http://localhost:8084/Project/apple/generic";
+            var data = { action:"check", uid: uid, type: type};  //access the hash
+            //console.log(data);
+            // Request with some data input
+            request.post(url,
+            {   
+                headers:{'X-Requested-With': null,
+        		'Content-Type': 'text/plain'},
+                data: JSON.stringify(data),
+                timeout: 3000     
+            }).then(
+                function(response){
+                    alert("you have " + response);
+                },
+                function(error){
+                    // Display the error returned
+                   // dom.byId("resultDiv").innerHTML = "<div class=\"error\">"+error+"<div>";
+                }
+            );
+        });
+}

@@ -88,10 +88,8 @@ public class GenericResource {
            return incrementLoss(json.getString("uid"));
         }else if (action.contains("tie")){
            return incrementTie(json.getString("uid"));
-        }else if (action.contains("findGame")){
-            return "finding game";
-        }else if (action.contains("play")){
-            return "playing game";
+        }else if (action.contains("check")){
+            return getStat(json.getString("uid"), json.getString("type"));
         }
         return "communicated with the server, no action!";
     }   catch(Exception e){
@@ -103,16 +101,16 @@ public class GenericResource {
         if(!userExists(uid)){
             d.create(new Users(uid, password));
         }
-        return uid + " account created";
+        return "success";
     }
 
     private String loginUser(String username, String password) {
         Users curUser = d.findUser(username);
         if(curUser.getPassword().equals(password)){
             d.create(new Activeplayers(username));
-            return username + "was logged in";
+            return username + "success";
         }else{
-            return "unable to login";
+            return "error";
         }
     }
     
@@ -125,7 +123,7 @@ public class GenericResource {
 
     private String logoutUser(String username) {
         d.remove(d.findActiveplayer(d.findUser(username)));
-        return username + " was logged out";
+        return "success";
     }
 
     private String incrementWin(String username) {
@@ -147,5 +145,20 @@ public class GenericResource {
         user.setTies(user.getTies() + 1);
         d.save(user);
         return username + "tied";
+    }
+
+    private String getStat(String username, String stat) {
+        Users user = d.findUser(username);
+        switch (stat) {
+            case "win":
+                return user.getWins().toString() + " wins!";
+            case "tie":
+                return user.getLosses().toString() + " ties.";
+            case "loss":
+                return user.getLosses().toString() + " losses :(";
+            default:
+                break;
+        }
+        return "no stats available";
     }
 }
