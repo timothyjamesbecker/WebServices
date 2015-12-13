@@ -43,7 +43,6 @@ CREATE TABLE `activeplayers` (
 
 LOCK TABLES `activeplayers` WRITE;
 /*!40000 ALTER TABLE `activeplayers` DISABLE KEYS */;
-INSERT INTO `activeplayers` VALUES ('testUser',NULL,NULL,1,1),('testUser1',NULL,NULL,1,0),('testUser2',NULL,NULL,1,1),('testuser3',99999,'testUser',1,0);
 /*!40000 ALTER TABLE `activeplayers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +67,6 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (4,'asdf',1),(99999,'\"{json:\'asdf\'}\"',1);
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,7 +94,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('test','temp',NULL,NULL,NULL,NULL),('testUser','asdfasdf',8,NULL,NULL,''),('testUser1','asdf',NULL,NULL,NULL,NULL),('testuser3','qwerty123',8,1,2,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,4 +114,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-09 20:07:41
+-- Dump completed on 2015-12-13 18:48:57
