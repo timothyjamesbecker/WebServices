@@ -1,0 +1,12 @@
+#tictactoe {
+  width: 100%;
+  height:100%;
+}
+#wrapper{
+    width:95%;
+}
+.tictactoeboard{
+    width: 32%;
+    height:32%;
+    background-size: 100%;
+}

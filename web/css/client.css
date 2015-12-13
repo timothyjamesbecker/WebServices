@@ -10,6 +10,7 @@
 }
 .tictactoeboard{
     background-color: #ffffff;
+    background-repeat: no-repeat;
 }
 #wrapper{
     width:85%;
