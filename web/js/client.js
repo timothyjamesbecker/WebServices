@@ -122,6 +122,22 @@ function hardAI(){
                 document.getElementById("svg7").style.backgroundImage = ("url('images/" + player + ".jpg')");
                 svg_array[7] = "o";
               }
+              else if((svg_array[1]=="x"&&svg_array[3]=="x")){
+                document.getElementById("svg0").style.backgroundImage = ("url('images/" + player + ".jpg')");
+                svg_array[0] = "o";
+              }
+              else if((svg_array[1]=="x"&&svg_array[5]=="x")){
+                document.getElementById("svg2").style.backgroundImage = ("url('images/" + player + ".jpg')");
+                svg_array[2] = "o";
+              }
+              else if((svg_array[3]=="x"&&svg_array[7]=="x")){
+                document.getElementById("svg6").style.backgroundImage = ("url('images/" + player + ".jpg')");
+                svg_array[6] = "o";
+              }
+              else if((svg_array[5]=="x"&&svg_array[7]=="x")){
+                document.getElementById("svg8").style.backgroundImage = ("url('images/" + player + ".jpg')");
+                svg_array[8] = "o";
+              }
               else{//random non corner
                   place = Math.floor(Math.random()*4);
                   if(place==0&&svg_array[1]==""){
