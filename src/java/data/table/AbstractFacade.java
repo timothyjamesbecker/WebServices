@@ -32,15 +32,24 @@ public abstract class AbstractFacade<T> {
     }
 
     public void edit(T entity) {
+        getEntityManager().getTransaction().begin();
         getEntityManager().merge(entity);
+        //getEntityManager().persist(entity);
+        getEntityManager().getTransaction().commit();
     }
 
     public void remove(T entity) {
+        getEntityManager().getTransaction().begin();
         getEntityManager().remove(getEntityManager().merge(entity));
+        getEntityManager().getTransaction().commit();
     }
 
     public T find(Object id) {
-        return getEntityManager().find(entityClass, id);
+        //T entity = getEntityManager().find(entityClass, id);
+        //getEntityManager().getTransaction().begin();
+        //getEntityManager().persist(entity);
+        //getEntityManager().getTransaction().commit();
+        return getEntityManager().find(entityClass, id);//entity;
     }
 
     public List<T> findAll() {

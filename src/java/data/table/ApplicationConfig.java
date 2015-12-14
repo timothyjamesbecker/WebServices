@@ -12,7 +12,7 @@ import javax.ws.rs.core.Application;
  *
  * @author tbecker
  */
-@javax.ws.rs.ApplicationPath("rest")
+@javax.ws.rs.ApplicationPath("apple")
 public class ApplicationConfig extends Application {
 
     @Override
@@ -29,7 +29,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(data.table.UsersFacadeREST.class);
+        resources.add(data.GenericResource.class);
     }
     
 }
